@@ -23,87 +23,142 @@ load_dotenv()
 st.set_page_config(page_title="Zyro Dynamics | Knowledge Assistant", page_icon="◈", layout="wide")
 st.markdown("""
 <style>
-/* Global high-contrast theme */
-.stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
-    background-color: #081321 !important;
-    color: #F8FAFC !important;
+/* High-contrast LIGHT theme: dark text on light surfaces */
+.stApp,
+[data-testid="stAppViewContainer"],
+[data-testid="stMain"],
+[data-testid="stMainBlockContainer"] {
+    background: #F5F7FB !important;
+    color: #172033 !important;
 }
-html, body, [class*="css"], p, label, li, span, div {
-    color: #F1F5F9;
+html, body, [data-testid="stMarkdownContainer"], .stMarkdown,
+p, li, label, .stCaption, [data-testid="stCaptionContainer"] {
+    color: #243247 !important;
 }
 h1, h2, h3, h4, h5, h6, strong, b {
-    color: #FFFFFF !important;
+    color: #111827 !important;
 }
 .block-container {max-width:1280px; padding-top:1.4rem;}
-[data-testid="stSidebar"], [data-testid="stSidebar"] > div {
-    background-color: #102238 !important;
+
+/* Sidebar */
+[data-testid="stSidebar"],
+[data-testid="stSidebar"] > div {
+    background: #E8EEF6 !important;
 }
-[data-testid="stSidebar"] * {
-    color: #F8FAFC !important;
+[data-testid="stSidebar"] *,
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] span {
+    color: #172033 !important;
 }
-.kicker {color:#7EE7C2 !important; font-size:.78rem; letter-spacing:.14em; font-weight:700;}
+
+/* Header card */
+.kicker {color:#08765B !important; font-size:.78rem; letter-spacing:.14em; font-weight:700;}
 .hero {
-    padding:1.2rem 1.4rem; border:1px solid #45617D;
-    border-radius:16px; background:linear-gradient(120deg,#173451,#102238);
+    padding:1.2rem 1.4rem;
+    border:1px solid #CBD5E1;
+    border-radius:16px;
+    background:linear-gradient(120deg,#FFFFFF,#EAF1F8);
 }
-.small-muted {color:#D5E2F0 !important; font-size:.92rem;}
-/* Inputs, dropdowns and chat box */
-.stTextInput input, .stTextArea textarea, .stChatInput textarea,
-[data-baseweb="input"] input, [data-baseweb="textarea"] textarea {
-    color:#FFFFFF !important;
-    background-color:#172B40 !important;
-    -webkit-text-fill-color:#FFFFFF !important;
-    border:1px solid #7890AA !important;
-}
-[data-baseweb="select"] > div, [data-baseweb="popover"] ul,
-[data-baseweb="menu"], [role="listbox"], [role="option"] {
-    background-color:#172B40 !important;
-    color:#FFFFFF !important;
-}
-[data-baseweb="select"] *, [role="option"] * {
-    color:#FFFFFF !important;
+.hero h1 {color:#111827 !important;}
+.small-muted {color:#334155 !important; font-size:.92rem;}
+
+/* Text inputs, chat input and text areas */
+.stTextInput input,
+.stTextArea textarea,
+.stChatInput textarea,
+[data-baseweb="input"] input,
+[data-baseweb="textarea"] textarea {
+    color:#111827 !important;
+    background:#FFFFFF !important;
+    -webkit-text-fill-color:#111827 !important;
+    border:1px solid #94A3B8 !important;
+    caret-color:#111827 !important;
 }
 input::placeholder, textarea::placeholder {
-    color:#C2D0DF !important;
-    -webkit-text-fill-color:#C2D0DF !important;
+    color:#64748B !important;
+    -webkit-text-fill-color:#64748B !important;
     opacity:1 !important;
 }
-/* Chat messages and content containers */
-[data-testid="stChatMessage"], [data-testid="stExpander"],
-[data-testid="stAlert"], [data-testid="stMetric"] {
-    color:#F8FAFC !important;
+
+/* Select boxes, dropdown menus and options */
+[data-baseweb="select"] > div,
+[data-baseweb="popover"],
+[data-baseweb="popover"] ul,
+[data-baseweb="menu"],
+[role="listbox"],
+[role="option"] {
+    background:#FFFFFF !important;
+    color:#111827 !important;
 }
-[data-testid="stChatMessage"] p, [data-testid="stChatMessage"] li,
-[data-testid="stExpander"] p, [data-testid="stExpander"] li {
-    color:#F1F5F9 !important;
+[data-baseweb="select"] *,
+[role="option"] *,
+[data-baseweb="menu"] * {
+    color:#111827 !important;
 }
+
+/* Chat messages and expanders */
+[data-testid="stChatMessage"],
+[data-testid="stExpander"],
+[data-testid="stAlert"] {
+    background:#FFFFFF !important;
+    color:#172033 !important;
+    border:1px solid #D5DEE9 !important;
+}
+[data-testid="stChatMessage"] *,
+[data-testid="stExpander"] *,
+[data-testid="stAlert"] * {
+    color:#243247 !important;
+}
+[data-testid="stChatMessage"] a,
+[data-testid="stExpander"] a {
+    color:#075985 !important;
+}
+
+/* Metrics */
 [data-testid="stMetric"] {
-    background:#142B42 !important; padding:12px;
-    border:1px solid #45617D; border-radius:12px;
+    background:#FFFFFF !important;
+    padding:12px;
+    border:1px solid #CBD5E1 !important;
+    border-radius:12px;
 }
-[data-testid="stMetricLabel"], [data-testid="stMetricValue"],
+[data-testid="stMetricLabel"],
+[data-testid="stMetricValue"],
 [data-testid="stMetricDelta"] {
-    color:#FFFFFF !important;
+    color:#111827 !important;
 }
-/* Tables and dataframe */
-[data-testid="stDataFrame"], [data-testid="stTable"] {
-    color:#F8FAFC !important;
+
+/* Dataframes and tables */
+[data-testid="stDataFrame"],
+[data-testid="stTable"] {
+    background:#FFFFFF !important;
+    color:#172033 !important;
 }
-[data-testid="stDataFrame"] * {
-    color:#F8FAFC !important;
+[data-testid="stDataFrame"] *,
+[data-testid="stTable"] * {
+    color:#172033 !important;
 }
-/* Buttons and slider labels */
+
+/* Buttons and interactive controls */
 .stButton button {
-    color:#FFFFFF !important; background:#205B78 !important;
-    border:1px solid #7AB6D1 !important;
+    color:#FFFFFF !important;
+    background:#155E75 !important;
+    border:1px solid #0E7490 !important;
 }
-.stButton button:hover {background:#287596 !important;}
+.stButton button * {color:#FFFFFF !important;}
+.stButton button:hover {background:#0E7490 !important;}
 .stSlider, .stSelectbox, .stFileUploader, .stCheckbox, .stToggle {
-    color:#F8FAFC !important;
+    color:#172033 !important;
 }
-hr {border-color:#45617D !important;}
+[data-testid="stSlider"] *,
+[data-testid="stFileUploader"] *,
+[data-testid="stCheckbox"] *,
+[data-testid="stToggle"] * {
+    color:#172033 !important;
+}
+hr {border-color:#CBD5E1 !important;}
 small, .stCaption, [data-testid="stCaptionContainer"] {
-    color:#D0DCE9 !important;
+    color:#475569 !important;
 }
 </style>
 """, unsafe_allow_html=True)
